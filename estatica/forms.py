@@ -1,6 +1,6 @@
 from django import forms
 from .models import tarea
-
+from django import forms
 
 class tareaForma(forms.ModelForm):
     class Meta:
@@ -18,3 +18,6 @@ class tareaForma(forms.ModelForm):
             ),
             "importante": forms.CheckboxInput(attrs={"class": "form-check-input"}),
         }
+
+
+

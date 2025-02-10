@@ -7,33 +7,15 @@ from .forms import tareaForma
 from .models import tarea
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+
+
+
 # Create your views here.
 
 def home(request):
     return render(request, "home.html")
 
 
-def signup(request):
-    if request.method == "GET":
-        return render(request, "signup.html", {"form": UserCreationForm})
-        # print('enviando datos')
-    else:
-        if request.POST["password1"] == request.POST["password2"]:
-            try:
-                user = User.objects.create_user(
-                    username=request.POST["username"],
-                    password=request.POST["password1"],
-                )
-                user.save()
-                login(request, user)
-                return redirect("tarea1")
-            except IntegrityError:
-                # return HttpResponse('usuario creado satisfatoriamente')
-                return render(request, "signup.html", {"form": UserCreationForm, 'error': 'usuario ya existe'})
-        #return HttpResponse("las claves no son correctas")
-        return render(request, "signup.html", {"form": UserCreationForm, 'error': 'las claves no son correctas'})
-        # print(request.POST)
-        # print('recibiendo datos')
 
 @login_required
 def tareac(request):
@@ -82,16 +64,7 @@ def signout(request):
     logout(request)
     return redirect('home')
 
-def signin(request):
-    if request.method == 'GET':
-        return render(request, 'signin.html', {'form': AuthenticationForm})
-    else:
-        user = authenticate(request, username = request.POST['username'], password = request.POST['password'] )
-        if user is None:
-            return render(request, 'signin.html', {'form': AuthenticationForm, 'error': 'usuario y clave invalidad'})
-        else:
-            login(request, user)
-            return redirect('tarea1')
+
         
 @login_required
 def creat_tarea(request):
@@ -106,5 +79,72 @@ def creat_tarea(request):
             return redirect('tarea1')
         except ValueError:
             return render(request, 'creat_tarea.html', {'form': tareaForma, 'error': 'datos no validos'})
+ 
+
+    
+# def signin(request):
+#     if request.method == 'GET':
+#         return render(request, 'signin.html', {'form': AuthenticationForm})
+#     else:
+#         user = authenticate(request, username = request.POST['username'], password = request.POST['password'] )
+#         if user is None:
+#             return render(request, 'signin.html', {'form': AuthenticationForm, 'error': 'usuario y clave invalidad'})
+#         else:
+#             login(request, user)
+#             return redirect('tarea1')
         
-            
+
+
+# def signup(request):
+#     if request.method == "GET":
+#         return render(request, "signup.html", {"form": UserCreationForm})
+#         # print('enviando datos')
+#     else:
+#         if request.POST["password1"] == request.POST["password2"]:
+#             try:
+#                 user = User.objects.create_user(
+#                     username=request.POST["username"],
+#                     password=request.POST["password1"],
+#                 )
+#                 user.save()
+#                 login(request, user)
+#                 return redirect("tarea1")
+#             except IntegrityError:
+#                 # return HttpResponse('usuario creado satisfatoriamente')
+#                 return render(request, "signup.html", {"form": UserCreationForm, 'error': 'usuario ya existe'})
+#         #return HttpResponse("las claves no son correctas")
+#         return render(request, "signup.html", {"form": UserCreationForm, 'error': 'las claves no son correctas'})
+#         # print(request.POST)
+#         # print('recibiendo datos')
+
+
+
+
+def signup(request):
+    if request.method == "GET":
+        return render(request, "signup.html", {"form": UserCreationForm})
+    else:
+        if request.POST["password1"] == request.POST["password2"]:
+            try:
+                user = User.objects.create_user(
+                    username=request.POST["username"],
+                    password=request.POST["password1"],
+                    email=request.POST["email"]
+                )
+                user.save()
+                login(request, user)
+                return redirect("tarea1")
+            except IntegrityError:
+                return render(request, "signup.html", {"form": UserCreationForm, 'error': 'usuario ya existe'})
+        return render(request, "signup.html", {"form": UserCreationForm, 'error': 'las claves no son correctas'})
+
+def signin(request):
+    if request.method == 'GET':
+        return render(request, 'signin.html', {'form': AuthenticationForm})
+    else:
+        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        if user is None:
+            return render(request, 'signin.html', {'form': AuthenticationForm, 'error': 'usuario y clave invalidad'})
+        else:
+            login(request, user)
+            return redirect('tarea1')

@@ -2,35 +2,59 @@
 
 {% block content %}
 
-
+<!-- 
 <main class="container">
     <div class="row">
         <div class="col-md-4 offset-md-4 mt-5">
-      
-            <form class="card card-body " method="post">
-                <h1 class="text-center">signup</h1>
+            <form class="card card-body" method="post">
+                <h1 class="text-center">Signup</h1>
                 {% csrf_token %}
-                {{error}}
-                <div class=" mb-3">
-                    <label for="username">username</label>
+                {{ error }}
+                <div class="mb-3">
+                    <label for="username">Username</label>
                     <input id="username" type="text" name="username" class="form-control" placeholder="Escriba tu usuario">
                 </div>
-                <div class=" mb-3">
-                    <label for="password">Confirme la clave</label>
-                    <input id="password1" type="password" name="password1" class=" form-control" placeholder="Escriba tu password1">
-                </div>
-                <div class=" mb-3">
-                    <label for="password">Confirme la clave</label>
-                    <input id="password2" type="password" name="password2" class="form-control" placeholder="Escriba tu password2">
-                </div>
              
-                <button class="btn btn-primary">
-                    signup
-                </button>
-            
+                <div class="mb-3">
+                    <label for="password1">Password</label>
+                    <input id="password1" type="password" name="password1" class="form-control" placeholder="Escriba tu password">
+                </div>
+                <div class="mb-3">
+                    <label for="password2">Confirme la clave</label>
+                    <input id="password2" type="password" name="password2" class="form-control" placeholder="Confirme tu password">
+                </div>
+                <button class="btn btn-primary">Signup</button>
             </form>
         </div>
     </div>
-   
+</main> -->
+<main class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 mt-5">
+            <form class="card card-body" method="post">
+                <h1 class="text-center">Signup</h1>
+                {% csrf_token %}
+                {{ error }}
+                <div class="mb-3">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" name="username" class="form-control" placeholder="Escriba tu usuario">
+                </div>
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" class="form-control" placeholder="Escriba tu correo electrónico">
+                </div>
+                <div class="mb-3">
+                    <label for="password1">Password</label>
+                    <input id="password1" type="password" name="password1" class="form-control" placeholder="Escriba tu password">
+                </div>
+                <div class="mb-3">
+                    <label for="password2">Confirme la clave</label>
+                    <input id="password2" type="password" name="password2" class="form-control" placeholder="Confirme tu password">
+                </div>
+                <button class="btn btn-primary">Signup</button>
+            </form>
+        </div>
+    </div>
 </main>
+
 {% endblock %}
